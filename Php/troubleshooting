@@ -1,0 +1,54 @@
+##Troubleshooting
+
+###进程排查
+	$ ps -aef | grep httpd
+	$ ps -aef | grep php
+	$ ps -aef | grep nginx
+	$ ps -aef | grep mysql
+
+###网络排查
+	使用以下命令监测php-fpm是否启动成功：
+	$ lsof -Pni4 | grep LISTEN | grep php
+
+###网络请求排查
+	测试Nginx或者Apache，这里端口为8080，如果需要可以修改监听默认端口。使用80端口，需要加入root组。
+	$ curl -IL http://127.0.0.1:8080
+
+###进程追踪
+	truss和strace用来 跟踪一个进程的系统调用或信号产生的情况，而 ltrace用来 跟踪进程调用库函数的情况。
+	在Unix系统中遇见"Segmentation Fault"就像在MS Windows中弹出"非法操作"对话框一样令人讨厌。
+
+	strace跟踪程序与系统交互时产生的系统调用，以上每一行就对应一个系统调用，格式为：
+	系统调用的名称( 参数... ) = 返回值 错误标志和描述
+	你不仅可以从命令行调试一个新开始的程序，也可以把truss、strace或ltrace绑定到一个已有的PID上来调试一个正在运行的程序。三个调试工具的基本使用方法大体相同，下面仅介绍三者共有，而且是最常用的三个命令行参数：
+
+	-f ：除了跟踪当前进程外，还跟踪其子进程。
+	-o file ：将输出信息写到文件file中，而不是显示到标准错误输出（stderr）。
+	-p pid ：绑定到一个由pid对应的正在运行的进程。此参数常用来调试后台进程。
+	使用上述三个参数基本上就可以完成大多数调试任务了，下面举几个命令行例子：
+
+	truss -o ls.truss ls -al： 跟踪ls -al的运行，将输出信息写到文件/tmp/ls.truss中。
+	strace -f -o vim.strace vim： 跟踪vim及其子进程的运行，将输出信息写到文件vim.strace。
+	ltrace -p 234： 跟踪一个pid为234的已经在运行的进程。
+
+	三个调试工具的输出结果格式也很相似，以strace为例：
+	brk(0)                                  = 0x8062aa8
+	brk(0x8063000)                          = 0x8063000
+	mmap2(NULL, 4096, PROT_READ, MAP_PRIVATE, 3, 0x92f) = 0x40016000
+	每一行都是一条系统调用，等号左边是系统调用的函数名及其参数，右边是该调用的返回值。 
+
+	truss、strace和ltrace的工作原理大同小异，都是使用ptrace系统调用跟踪调试运行中的进程，详细原理不在本文讨论范围内，有兴趣可以参考它们的源代码。
+	
+	Mac OS X下
+	$ dtruss -p 
+	Mac OS X 在 10.11 中全面启用了 System Integrity Protection (SIP) —— 系统完整性保护技术。
+	SIP 技术主要是用来限制 root 用户的权限，以提升系统的健壮性。
+	Mac 提供了内置 csrutil 配置来进行一些 SIP 的配置。在默认情况下，SIP 是开启状态，你可以用一下指令查看
+
+	Linux下
+	$ strace -p psid
+
+###日志排查
+$ tail -f /usr/local/var/log/apache2/error_log
+
+
