@@ -3,8 +3,6 @@
 LAMP is Linux Apache server Mysql and PHP
 
 
-
-
 ### Apache install
 	The latest macOS 10.12 Sierra comes with Apache 2.4 pre-installed, however, it is no longer a simple task to use this version with Homebrew because Apple has removed some required scripts in this release. However, the solution is to install Apache 2.4 via Homebrew and then configure it to run on the standard ports (80/443).
 

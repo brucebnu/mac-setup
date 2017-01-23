@@ -78,14 +78,37 @@ Fast, flexible and pragmatic, PHP powers everything from your blog to the most p
 
 	$ sudo killall php-fpm
 
-### php module install
+### php options install
 	You can get a full list of available options to include by typing,
 	$ brew options php56
+
 	for example, In this example we are just including Apache support via --with-httpd24 to build the required PHP modeules for Apache
 	$ brew install php56 --with--httpd24
 	
 	/usr/local/opt/php56-intl/intl.so
 	/usr/local/opt/php56-intl/intl.so
+
+### How to install PHP intl extension on OS X
+	
+	Prerequistite
+	Homebrew
+	PECL
+	Terminal
+
+	Install ICU Libraries via Homebrew
+	$ brew update
+	$ brew install icu4c
+
+	Install Intl Extension via PECL
+	$ sudo pecl update-channels
+	$ sudo pecl install intl
+
+	or
+	$ brew reinstall --build-from-source php56-intl
+	$ brew reinstall --build-from-source php57-intl
+
+	$ brew install --build-from-source php70-intl
+	$ brew install --build-from-source php56-intl
 
 
 
