@@ -1,22 +1,32 @@
 # Homebrew
 
-Package managers make it so much easier to install and update applications (for Operating Systems) or libraries (for programming languages). The most popular one for OS X is [Homebrew](http://brew.sh/).
+[Homebrew](https://brew.sh/) calls itself _The missing package manager for
+macOS_ and is an essential tool for any developer.
 
-### Install
+## Installation
 
-An important dependency before Homebrew can work is the **Command Line Tools** for **Xcode**. These include compilers that will allow you to build things from source.
+Before you can run Homebrew you need to have the **Command Line Tools** for
+**Xcode** installed. It include compilers that will allow you to build things
+from source, and if you are missing this it's available through the App Store >
+Updates.
 
+To install Homebrew run the following:
+terminal, hit **Enter**, and follow the steps on the screen:
 
-We can install Hombrew! In the terminal paste the following line (without the `$`), hit **Enter**, and follow the steps on the screen:
+    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-One thing we need to do is tell the system to use programs installed by Hombrew (in `/usr/local/bin`) rather than the OS default if it exists. We do this by adding `/usr/local/bin` to your `$PATH` environment variable:
+One thing you need to do is tell the system to use programs installed by Hombrew
+(in `/usr/local/bin`) rather than the OS default if it exists. You do this by
+adding `/usr/local/bin` to your `PATH` environment variable (if you're using
+`zsh` you should use `.zshrc` instead of `.bash_profile`):
 
     $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
 
-Alternatively, we can also insert `/usr/local/bin` to the first line of `/private/etc/paths` and reboot the Mac to change global paths loading order. Admin password may be required if you modify the file.
+Alternatively, you can also insert `/usr/local/bin` to the first line of
+`/private/etc/paths` and reboot the Mac to change global paths loading order.
+Admin password may be required if you modify the file.
 
-Open an new terminal tab with **Cmd+T** (you should also close the old one), then run the following command to make sure everything works:
+To be able to use `brew` you need to start a new terminal session. After that
+you should make sure everything is working by running:
 
     $ brew doctor

@@ -1,38 +1,56 @@
 # Python
 
-OS X, like Linux, ships with [Python](http://python.org/) already installed. But you don't want to mess with the system Python (some system tools rely on it, etc.), so we'll install our own version(s). There are two ways to install Python, (1) Homebrew and (2) Pyenv. If you plan to use multiple versions of Python (e.g. 2, 3, and anaconda) then you should use pyenv. 
+macOS, like Linux, ships with [Python](https://python.org/) already installed.
+But you don't want to mess with the system Python (some system tools rely on
+it, etc.), so we'll install our own version(s). There are two ways to install
+Python, (1) Homebrew and (2) Pyenv. If you plan to use multiple versions of
+Python (e.g. 2, 3, and anaconda) then you should use pyenv.
+
+## Installation
 
 ### Homebrew method
 
-The following command will install Python 2.7 and any dependencies required (it can take a few minutes to build everything):
+Python 3 is the default version when installing with Homebrew, so if you want
+to install Python 2.7 you'll have to be explicit about it.
+
+**Python 3**
 
     $ brew install python
 
-When finished, you should get a summary in the terminal. Running `$ which python` should output `/usr/local/bin/python`.
+**Python 2.7**
 
-It also installed [Pip](https://pypi.python.org/pypi/pip) (and its dependency [Setuptools](https://pypi.python.org/pypi/setuptools)), which is the package manager for Python. Let's upgrade them both:
+    $ brew install python@2
+
+Installing Python also installs [pip](https://pypi.org/project/setuptools/)
+(and its dependency [Setuptools](https://pypi.python.org/pypi/setuptools)),
+which is the package manager for Python. Let's upgrade them both:
 
     $ pip install --upgrade setuptools
     $ pip install --upgrade pip
 
-Executable scripts from Python packages you install will be put in `/usr/local/share/python`, we already had this in the `Env.sh` file created before. Save the file and open a new terminal to take the new `$PATH` into account (everytime you open a terminal, `.bash_profile` gets loaded).
+Executable scripts from Python packages you install will be put in
+`/usr/local/share/python`, make sure it's on your `PATH`.
 
 ### Pyenv method
 
-[Pyenv](https://github.com/yyuu/pyenv) is a simple Python version manager that can manage and install different versions of Python. Works very much like rbenv for Ruby. First, we must install pyenv using homebrew:
+[`pyenv`](https://github.com/yyuu/pyenv) is a Python version manager that can
+manage and install different versions of Python. Works very much like `rbenv`
+for Ruby. First, we must install `pyenv` using Homebrew:
 
     $ brew install pyenv
 
-To upgrade pyenv in the future, use `upgrade` instead of `install`.
-After installing, add `pyenv init` to your shell to enable shims and autocompletion.
+To upgrade `pyenv` in the future, use `upgrade` instead of `install`. After
+installing, add `pyenv init` to your shell to enable shims and autocompletion
+(use `.zshrc` if you're using `zsh`).
 
-    $ echo 'eval "$(pyenv init -)"' >> ~/Projects/config/env.sh
+    $ echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
 
-Restart your shell so the path changes take effect. You can now begin using pyenv.
+Restart your shell so the path changes take effect.
 
     $ exec $SHELL
 
-To list the all available versions of Python, including Anaconda, Jython, pypy, and stackless, use:
+You can now begin using `pyenv`. To list the all available versions of Python,
+including Anaconda, Jython, PyPy and Stackless, use:
 
     $ pyenv install --list
 
@@ -41,13 +59,14 @@ Then install the desired versions:
     $ pyenv install 2.7.12
     $ pyenv install 3.5.2
 
-Use the `global` command to set global version(s) of Python to be used in all shells. For example, if you prefer 2.7.12 over 3.5.2:
+Use the `global` command to set global version(s) of Python to be used in all
+shells. For example, if you prefer 2.7.12 over 3.5.2:
 
     $ pyenv global 2.7.12 3.5.2
     $ pyenv rehash
 
-The leading version takes priority.
-All installed Python versions can be located in `~/.pyenv/versions`. Alternatively, you can run:
+The leading version takes priority. All installed Python versions can be
+located in `~/.pyenv/versions`. Alternatively, you can run:
 
     $ pyenv versions
       system (set by /Users/your_account/.pyenv/version)
@@ -56,38 +75,19 @@ All installed Python versions can be located in `~/.pyenv/versions`. Alternative
 
 This shows an asterisk `*` next to the currently active version.
 
-**Local application-specific Python version**
+### Application-specific Python version
 
-The `local` command will set local application-specific Python version(s) by writing the version name to a `.python-version` file in the current directory. This version overrides the global version. For example, to install anaconda3-4.1.1 in `path/to/directory`:
+The `local` command will set local application-specific Python version(s) by
+writing the version name to a `.python-version` file in the current directory.
+This version overrides the global version. For example, to install
+anaconda3-4.1.1 in `path/to/directory`:
 
     $ pyenv install anaconda3-4.1.1
     $ cd path/to/directory
     $ pyenv local anaconda3-4.1.1
     $ pyenv rehash
-    $ pyenv versions 
+    $ pyenv versions
       system
       2.7.12
       3.5.2
     * anaconda3-4.1.1 (set by /Users/your_account/path/to/directory/.python-version)
-
-### P.S if you can't access pip.
-
-This Guide will help you install pip if it is not already installed with the python installation that OSX ships with.
-
-**Installation**
-
-Open your teminal window and enter the following command
-
-        curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
-
-then enter
-
-        sudo python get-pip.py
-
-Enter your password when prompted, Once the installation runs through you are done.
-
-to verify pip is installed properely enter
-
-        pip --version
-
-If it tells you the version of pip you've installed, you are all set to use **pip**.

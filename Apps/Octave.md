@@ -1,38 +1,42 @@
 # Octave
+[Octave](https://www.gnu.org/software/octave/) is a programming language for scientific computing.
 
-### Before you start
+## Prerequisite
+You might need `homebrew-cask`, if you don't have it refer to [this section](/mac-setup/Homebrew/Cask.html).
 
-In order to simplify the installation process you should install homebrew-cask which provides a friendly homebrew-style CLI workflow for the administration of Mac applications distributed as binaries. Refer to [this](../Homebrew/Cask.md) article in order to install homebrew-cask.
+## Installation
 
-### Install
+### Homebrew Octave.app
+[Octave.app](http://octave-app.org) is a project to distribute GNU Octave as a native Mac GUI application, to make it easier to install and use Octave on macOS. Note this is not an official GNU or GNU Octave project.
+As this distibutes a compiled version of Octave, installation will be much faster.
 
-Octave can be installed with `brew cask install octave` or using the method below.
+To [install using homebrew-cask](http://octave-app.org/#installing-with-homebrew-cask) run:
 
-Import the scientific computing packages, including Octave:
+    $ brew tap octave-app/octave-app
+    $ brew cask install octave-app
 
-    brew tap homebrew/science
 
-To install Octave, update to the latest package definitions, install ,
-and then Octave:
+### Homebrew official
+You can also install Octave from the offical homebrew source using the method below.
 
-    brew update && brew upgrade
-    brew install gcc
-    brew install octave
+Import the scientific computing packages and install necessary packages:
 
-Note: If brew complains about not having a formula for octave, the
-following command should fix it:
+    $ brew tap homebrew/science
+    $ brew install gcc
+    $ brew install octave
 
-    brew tap --repair
+**Note**: If brew complains about not having a formula for Octave, the following command should fix it:
 
-The command below upgrades Octave and its dependencies to the latest
-Homebrew-supported versions:
+    $ brew tap --repair
 
-    brew update && brew upgrade
+The command below upgrades Octave and its dependencies to the latest Homebrew-supported versions:
 
-Octave has many dependencies which will be downloaded and installed prior to Octave. The entire installation process can take a few hours. Note: On Snow Leopard, Octave requires a X server. If you install without, Homebrew will guide you to the [XQuartz project](https://xquartz.macosforge.org) where you can download this.
+    $ brew update && brew upgrade
+
+Octave has many dependencies which will be downloaded and installed prior to Octave. **The entire installation process can take a few hours.** **Note:** On Snow Leopard, Octave requires a X server. If you install without, Homebrew will guide you to the [XQuartz project](https://xquartz.macosforge.org) where you can download this.
+
 You might find that you need to add:
 
     setenv ("GNUTERM", "X11")
 
 to your octaverc file, normally located at `/usr/local/share/octave/site/m/startup`.
-
